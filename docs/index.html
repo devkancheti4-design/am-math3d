@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://devkancheti4-design.github.io/am-math3d/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232440C9'/><rect x='8' y='11' width='16' height='3' rx='1.5' fill='white'/><rect x='8' y='18' width='16' height='3' rx='1.5' fill='white'/></svg>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AM Math 3D">
+<meta property="og:description" content="AM Math 3D turns AI video into equations, locks them before generation, and measures every painted frame against them.">
+<meta property="og:url" content="https://devkancheti4-design.github.io/am-math3d/">
+<meta property="og:image" content="https://devkancheti4-design.github.io/am-math3d/media/chess_kling_slide_last.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBFBFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1013" media="(prefers-color-scheme: dark)">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>AM Math 3D</title>
+<meta name="description" content="AM Math 3D turns AI video into equations, locks them before generation, and measures every painted frame against them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column with figures that break wider; numbers are the subject's own material, so they are set in mono like a lab record. */
+:root {
+  --paper: #FBFBFA;
+  --panel: #F2F3F4;
+  --ink: #121417;
+  --muted: #545B66;
+  --faint: #868D98;
+  --rule: #E2E4E8;
+  --accent: #2440C9;
+  --accent-soft: rgba(36, 64, 201, 0.08);
+  --am: #D9432A;
+  --take: #1689AD;
+  --pass: #1D7A4C;
+  --pass-soft: rgba(29, 122, 76, 0.10);
+  --fail: #B4271E;
+  --fail-soft: rgba(180, 39, 30, 0.09);
+  --wait: #8A5A00;
+  --wait-soft: rgba(138, 90, 0, 0.10);
+  --display: "STIX Two Text", "Times New Roman", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1013; --panel: #161A1F; --ink: #E8EAED; --muted: #A4ABB6; --faint: #737A86; --rule: #252A31;
+    --accent: #8FA1FF; --accent-soft: rgba(143, 161, 255, 0.12); --am: #FF7059; --take: #4CC3E4;
+    --pass: #4CC88B; --pass-soft: rgba(76, 200, 139, 0.12); --fail: #FF7B71; --fail-soft: rgba(255, 123, 113, 0.12);
+    --wait: #E8B04A; --wait-soft: rgba(232, 176, 74, 0.12);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1013; --panel: #161A1F; --ink: #E8EAED; --muted: #A4ABB6; --faint: #737A86; --rule: #252A31;
+  --accent: #8FA1FF; --accent-soft: rgba(143, 161, 255, 0.12); --am: #FF7059; --take: #4CC3E4;
+  --pass: #4CC88B; --pass-soft: rgba(76, 200, 139, 0.12); --fail: #FF7B71; --fail-soft: rgba(255, 123, 113, 0.12);
+  --wait: #E8B04A; --wait-soft: rgba(232, 176, 74, 0.12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, video:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.read { max-width: 68ch; }
+.eyebrow { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: -0.005em; }
+h2 { font-size: clamp(30px, 4.2vw, 44px); line-height: 1.12; }
+h3 { font-size: 24px; line-height: 1.25; }
+p { margin: 0; }
+.mono, code, pre, td.num, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--rule); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.mark { font-family: var(--display); font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.mark b { color: var(--accent); font-weight: 600; }
+.bar nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: flex-end; font-size: 14px; }
+.bar nav a { color: var(--muted); text-decoration: none; }
+.bar nav a:hover { color: var(--ink); }
+@media (max-width: 720px) { .bar nav .opt { display: none; } }
+
+/* hero */
+.hero { padding-block: 72px 40px; }
+.hero h1 { font-size: clamp(60px, 10vw, 112px); line-height: 0.95; font-weight: 600; letter-spacing: -0.02em; }
+.hero h1 b { color: var(--accent); font-weight: 600; }
+.hero .sub { font-family: var(--display); font-size: clamp(22px, 2.8vw, 30px); line-height: 1.3; margin-top: 22px; max-width: 30ch; color: var(--ink); }
+.hero .meta { margin-top: 20px; font-size: 14px; color: var(--muted); }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--rule); border-radius: 6px; color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 500; background: var(--paper); }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn .arr { font-family: var(--mono); font-size: 13px; opacity: 0.8; }
+
+/* the big question */
+.question { padding-block: 40px 72px; }
+.question h2 { max-width: 20ch; }
+.question .lede { margin-top: 18px; color: var(--muted); }
+.trip { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin-top: 36px; }
+.trip > div { background: var(--paper); padding: 22px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.trip > div:first-child { grid-column: 1 / -1; }
+.trip .label { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+.trip .label.am { color: var(--am); }
+.rows { width: 100%; border-collapse: collapse; font-size: 13px; }
+.rows th { text-align: left; font-family: var(--sans); font-weight: 500; font-size: 11.5px; color: var(--faint); padding: 0 8px 6px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.rows td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.rows-wrap { overflow-x: auto; }
+.seal { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.no { font-family: var(--display); font-size: 64px; line-height: 1; color: var(--fail); }
+.trip .big { font-family: var(--display); font-size: 22px; line-height: 1.3; }
+.trip .note { font-size: 14px; color: var(--muted); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pair figure, .media figure { margin: 0; }
+figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
+video, .media img, .shot img { width: 100%; height: auto; display: block; border-radius: 6px; background: var(--panel); }
+.closest { margin-top: 22px; font-size: 15px; color: var(--muted); }
+@media (max-width: 860px) { .trip { grid-template-columns: 1fr; } }
+
+/* sections */
+section.block { padding-block: 72px; border-top: 1px solid var(--rule); }
+.head { display: grid; gap: 14px; margin-bottom: 36px; }
+.head p { color: var(--muted); max-width: 64ch; }
+
+/* method */
+.steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; }
+.step .n { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.04em; }
+.step h3 { margin: 6px 0 10px; }
+.step p { color: var(--muted); font-size: 16px; }
+.eq { margin-top: 14px; padding: 14px 16px; background: var(--panel); border-radius: 6px; font-family: var(--display); font-size: 19px; line-height: 1.5; overflow-x: auto; white-space: nowrap; }
+.eq i { font-style: italic; }
+.eq .t { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-left: 10px; font-style: normal; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* results table */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; }
+table.res { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 640px; }
+table.res th { text-align: left; font-weight: 500; font-size: 12.5px; color: var(--faint); padding: 12px 16px; border-bottom: 1px solid var(--rule); background: var(--panel); }
+table.res td { padding: 13px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.res tr:last-child td { border-bottom: 0; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.pass { color: var(--pass); background: var(--pass-soft); }
+.pill.fail { color: var(--fail); background: var(--fail-soft); }
+.pill.wait { color: var(--wait); background: var(--wait-soft); }
+.pill.follow { color: var(--accent); background: var(--accent-soft); }
+
+/* proof cards */
+.proofs { display: grid; gap: 64px; margin-top: 56px; }
+.proof { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+.proof .text { display: grid; gap: 14px; }
+.proof .text p { color: var(--muted); font-size: 16px; }
+.proof .stat { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--ink); }
+.proof .stat small { font-family: var(--sans); font-size: 14px; color: var(--muted); margin-left: 8px; }
+.proof .media { display: grid; gap: 10px; }
+.tall { display: grid; grid-template-columns: repeat(2, minmax(0, 150px)); gap: 12px; }
+@media (max-width: 860px) { .proof { grid-template-columns: 1fr; } }
+
+/* core reasoner */
+table.rules { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+table.rules th { text-align: left; font-weight: 500; font-size: 12.5px; color: var(--faint); padding: 10px 14px; border-bottom: 1px solid var(--rule); background: var(--panel); }
+table.rules td { padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+table.rules tr:last-child td { border-bottom: 0; }
+.cannot { margin-top: 22px; color: var(--muted); max-width: 68ch; }
+.cannot strong { color: var(--ink); }
+
+/* numbers test */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.tile { background: var(--paper); padding: 20px; display: grid; gap: 6px; }
+.tile .v { font-family: var(--display); font-size: 36px; line-height: 1.05; }
+.tile .v .from { color: var(--fail); }
+.tile .v .to { color: var(--pass); }
+.tile .k { font-size: 14px; color: var(--muted); }
+@media (max-width: 760px) { .tiles { grid-template-columns: 1fr; } }
+.numbers-figure { margin: 36px 0 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.numbers-figure img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.status { display: grid; gap: 12px; }
+.status p { color: var(--muted); font-size: 16px; }
+@media (max-width: 860px) { .numbers-figure { grid-template-columns: 1fr; } }
+
+/* cost + limits */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+@media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+ul.limits { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: var(--muted); }
+ul.limits strong { color: var(--ink); font-weight: 600; }
+
+footer { border-top: 1px solid var(--rule); padding-block: 48px 64px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; }
+footer p { color: var(--faint); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">AM Math <b>3D</b></a>
+    <nav aria-label="Sections">
+      <a href="#question">The question</a>
+      <a class="opt" href="#method">Method</a>
+      <a href="#proofs">Proofs</a>
+      <a class="opt" href="#reasoner">Core reasoner</a>
+      <a href="#numbers">Numbers test</a>
+      <a class="opt" href="https://github.com/devkancheti4-design/am-math3d">Code ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Video into equations. Equations into video.</p>
+      <h1>AM Math <b>3D</b></h1>
+      <p class="sub">Turning AI video into equations, locking them before anything is generated, and measuring every painted frame against them.</p>
+      <p class="meta">Sealed single-take tests · every number from the record · November 2026</p>
+      <div class="buttons">
+        <a class="btn primary" href="https://claude.ai/artifact/Cu9qB3YB3oE771xddHaGPm">Paper <span class="arr">↗</span></a>
+        <a class="btn" href="https://github.com/devkancheti4-design/am-math3d">Code <span class="arr">↗</span></a>
+        <a class="btn" href="https://github.com/devkancheti4-design/am-math3d/tree/main/results">Sealed record <span class="arr">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="question" id="question">
+    <div class="wrap">
+      <p class="eyebrow">The big question</p>
+      <h2>There is no video model that takes raw numbers.</h2>
+      <p class="lede read">AM answers a shot with numbers for every frame: where the object stands, when it moves, how big it looks. Veo, FLUX and Kling take text, pictures and video. So today the numbers have to be drawn as a picture before any model can use them.</p>
+
+      <div class="trip" role="group" aria-label="AM's numbers, the same numbers as words, and the same numbers as a picture">
+        <div>
+          <p class="label am">AM's answer: raw numbers</p>
+          <div class="rows-wrap">
+            <table class="rows">
+              <thead><tr><th>frame</th><th>t (s)</th><th>square u, v</th><th>foot (px)</th><th>height (px)</th></tr></thead>
+              <tbody>
+                <tr><td class="num">0</td><td class="num">0.0</td><td class="num">3.2367, 4.4161</td><td class="num">460.34, 303.00</td><td class="num">60.92</td></tr>
+                <tr><td class="num">30</td><td class="num">1.0</td><td class="num">3.2367, 3.9161</td><td class="num">462.02, 313.04</td><td class="num">63.36</td></tr>
+                <tr><td class="num">45</td><td class="num">1.5</td><td class="num">3.2367, 3.4161</td><td class="num">463.85, 323.97</td><td class="num">66.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="seal">Chess plan, 91 rows · SHA-256 e9c256d1…83ab · sealed before generation</p>
+        </div>
+        <div>
+          <p class="label">As words</p>
+          <p class="no" aria-hidden="true">×</p>
+          <p class="big">221 px off, 1.6 s late.</p>
+          <p class="note">The Veo take whose prompt carried AM's raw numbers missed the mouse's landing spot by 221 px. Every text-prompted mouse stayed in its own depth plane.</p>
+        </div>
+        <div>
+          <p class="label">As a picture</p>
+          <div class="pair">
+            <figure>
+              <video src="media/chess_guide_slide.mp4" autoplay muted loop playsinline preload="metadata" aria-label="AM's guide: the pawn's own pixels placed at AM's numbers in every frame"></video>
+              <figcaption>AM draws its numbers</figcaption>
+            </figure>
+            <figure>
+              <video src="media/chess_kling_slide.mp4" poster="media/chess_kling_slide_last.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Kling 4.0 Edit repaints AM's guide"></video>
+              <figcaption>Kling repaints it: median 1.7 px</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <p class="closest read">The closest thing to a model that takes numbers is 3DTrajMaster, which reads object poses directly. AM's numbers for it are written and sealed. <a href="#numbers">See the numbers test.</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Method</p>
+        <h2>Four steps from a clip to a locked plan.</h2>
+        <p>Each step writes numbers down. Nothing a model paints later can change them.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <p class="n">01 / Measure</p>
+          <h3>Every object, every frame, in centimetres.</h3>
+          <p>Apple Vision tracks each object's box, and Depth Anything V2 Metric gives every pixel a depth. The lens is stated: a 60° pinhole. Six background patches give the camera's motion and the light's changes, which are taken out.</p>
+          <p class="eq"><i>X</i> = (<i>x</i> − <i>c<sub>x</sub></i>) · <i>Z</i> / <i>f</i>,&nbsp;&nbsp; <i>W</i> = <i>w</i> · <i>Z</i> / <i>f</i><span class="t">f ≈ 740 px at 854 px wide</span></p>
+        </div>
+        <div class="step">
+          <p class="n">02 / Reason</p>
+          <h3>A law for each number, or CANNOT.</h3>
+          <p>Four hives propose a rule: exact, a shape, a local line, a period. A rule counts only if it keeps 60% of the frames inside a band set by the number's own noise. AM's number law then states one rule, with the frames that keep and break it, or answers CANNOT.</p>
+          <p class="eq"><i>τ</i> = 3<i>σ</i> + 0.5<span class="t">σ from the second differences</span></p>
+        </div>
+        <div class="step">
+          <p class="n">03 / Solve</p>
+          <h3>The action, as equations for every frame.</h3>
+          <p>The last frame becomes geometry: a fitted stage, the pieces on it, a chessboard's pose. A jump is a gravity arc, and a slide starts and stops at rest. If the scene forbids the action, the answer is CANNOT, with the reason.</p>
+          <p class="eq"><i>Y</i>(<i>k</i>) = <i>Y</i><sub>0</sub> + (<i>Y</i><sub>1</sub> − <i>Y</i><sub>0</sub>)<i>s</i> − 4<i>H</i><sub>ap</sub><i>s</i>(1 − <i>s</i>),&nbsp;&nbsp; <i>H</i><sub>ap</sub> = <i>gT</i><sup>2</sup>/8</p>
+        </div>
+        <div class="step">
+          <p class="n">04 / Lock and measure</p>
+          <h3>Sealed first. Measured after.</h3>
+          <p>The plan and its rule are hashed with SHA-256 before any video exists. The same tracker then runs on AM's guide and on the generated take, so its own bias cancels. Background patches show whether the camera moved.</p>
+          <p class="eq"><i>e</i> = 3<i>s</i><sup>2</sup> − 2<i>s</i><sup>3</sup><span class="t">the slide: at rest at both ends</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="proofs">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Proofs</p>
+        <h2>Sealed, one take each, measured against the lock.</h2>
+        <p>Each plan was hashed before generation and each rule written in advance. Results are single takes, so they show what AM can do, not yet how often.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="res">
+          <thead><tr><th>Test</th><th>Generator</th><th>Takes</th><th>Measured against AM's lock</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Cats Playing Chess: the pawn's slide</td><td>Kling 4.0 Edit</td><td class="num">1</td><td>median 1.7 px, worst 3.4 px; rests 1.5 px from square 3,3</td><td><span class="pill pass">PASS</span></td></tr>
+            <tr><td>Mouse Jump: the plate leap</td><td>FLUX 3 Edit on AM's guide</td><td class="num">1</td><td>lands 3 px from AM's spot at 1.29 s (1.33 s asked)</td><td><span class="pill follow">FOLLOWS</span></td></tr>
+            <tr><td>Mouse Jump, words only</td><td>Veo 3.1 Lite</td><td class="num">6</td><td>53 to 221 px off; never landed</td><td><span class="pill fail">MISSES</span></td></tr>
+            <tr><td>The beat: a clip extended by AM's law</td><td>Kling 4.0 Edit</td><td class="num">1</td><td>period 14 frames, inside the locked 13 ± 1; 5% slow</td><td><span class="pill pass">PASS</span></td></tr>
+            <tr><td>The ad: 15 s camera move from one photo</td><td>Kling 4.0 Edit</td><td class="num">1</td><td>returned 4.04 s, not 15</td><td><span class="pill fail">FAIL</span></td></tr>
+            <tr><td>The numbers test: poses straight in</td><td>3DTrajMaster</td><td class="num">0</td><td>sealed; needs a 40 GB GPU</td><td><span class="pill wait">NOT RUN</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="proofs">
+        <article class="proof">
+          <div class="text">
+            <p class="eyebrow">Cats Playing Chess</p>
+            <p class="stat">1.7 px<small>median, 73 planned frames</small></p>
+            <p>The ask was "the grey cat moves a pawn two steps". AM answered CANNOT: every pawn's second square ahead is taken. The move became one square, and in the final plan the pawn slides by itself between 0.5 and 1.5 s.</p>
+            <p>One Kling 4.0 Edit take kept the pawn within a worst case of 3.4 px and set it down 1.5 px from square 3,3. Sixteen still pawns matched the start frame within 1.2 px. Two earlier takes failed where the ask clashed with the scene: the models had the grey cat move a piece within its own reach.</p>
+          </div>
+          <div class="media">
+            <figure>
+              <video src="media/chess_label_kling.mp4" poster="media/chess_label_kling_last.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Kling's take with AM's locked box and the measured distance on every frame"></video>
+              <figcaption>Kling's take with AM's locked numbers and the measured distance on every frame.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="proof">
+          <div class="text">
+            <p class="eyebrow">The Mouse Jump</p>
+            <p class="stat">3 px<small>from AM's landing spot</small></p>
+            <p>The ask: the mouse leaps onto the tomato plate, 69 cm deeper, landing at 1.33 s. AM solved it as a gravity arc and drew the mouse's own pixels along it. One FLUX 3 Edit take landed 3 px from AM's spot at 1.29 s.</p>
+            <p>Six Veo takes driven only by words landed 53 to 221 px off and never reached the plate. The floating hat in FLUX's take came from AM's guide background, which still held it.</p>
+          </div>
+          <div class="media pair">
+            <figure>
+              <video src="media/mouse_flux_G.mp4" poster="media/mouse_flux_G_last.jpg" autoplay muted loop playsinline preload="metadata" aria-label="FLUX 3 Edit repaints AM's guide: the mouse lands on the plate"></video>
+              <figcaption>AM's guide, repainted</figcaption>
+            </figure>
+            <figure>
+              <video src="media/mouse_prompt_A.mp4" poster="media/mouse_prompt_A_last.jpg" autoplay muted loop playsinline preload="metadata" aria-label="A words-only take: the mouse does not reach the plate"></video>
+              <figcaption>Veo, normal words: never reaches the plate</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="proof">
+          <div class="text">
+            <p class="eyebrow">The beat</p>
+            <p class="stat">13 → 14<small>frames per bounce, locked 13 ± 1</small></p>
+            <p>From numbers alone, AM's core proved five dancers bounce on one shared law, every 14 frames. Over the clip's last 55 frames it proved 13: the tempo rose. The pixels, measured without AM, agree both times.</p>
+            <p>AM's law for the new frames, frame(t) = frame(t − 13), was locked before generation. Kling's continuation kept a 14-frame beat, inside the rule and 5% slow, and AM's core found the beat again in the generated video.</p>
+          </div>
+          <div class="media">
+            <figure>
+              <video src="media/beat_take.mp4" poster="media/beat_take.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Kling's continuation of the drummers' clip"></video>
+              <figcaption>Kling's continuation, built from AM's law.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="proof">
+          <div class="text">
+            <p class="eyebrow">The ad</p>
+            <p class="stat">4.04 s<small>returned for a 15 s plan</small></p>
+            <p>From one product photo, AM wrote and locked all 450 frames of a 15-second camera move: an 8° arc around the notebook and a push-in to 85% of the frame height.</p>
+            <p>The one Kling take returned 4 seconds and ran the move about twice as fast, so it failed the sealed rule. The lesson is practical: lock the plan for the length a model actually returns.</p>
+          </div>
+          <div class="media tall">
+            <figure>
+              <video src="media/ad_guide.mp4" poster="media/ad_guide.jpg" autoplay muted loop playsinline preload="metadata" aria-label="AM's 15 second guide"></video>
+              <figcaption>AM's guide, 15 s</figcaption>
+            </figure>
+            <figure>
+              <video src="media/ad_take.mp4" poster="media/ad_take.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Kling's 4 second take"></video>
+              <figcaption>Kling's take, 4 s</figcaption>
+            </figure>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="reasoner">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Inside the core reasoner</p>
+        <h2>Laws with proofs, or CANNOT.</h2>
+        <p>On a Sora clip of two cats at a chessboard, AM proved 8 rules. Each is a formula a machine can run, with the frames that keep it.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="rules">
+          <thead><tr><th>Object (frames)</th><th>Number</th><th>Rule</th><th>Formula</th><th>Kept / measured</th></tr></thead>
+          <tbody>
+            <tr><td class="num">2 (0–149)</td><td class="num">H</td><td>REPEAT</td><td class="num">table[t mod 18]</td><td class="num">95 / 150</td></tr>
+            <tr><td class="num">4 (10–149)</td><td class="num">rZ</td><td>EXACT</td><td class="num">12*((0)-12)</td><td class="num">88 / 140</td></tr>
+            <tr><td class="num">4 (10–149)</td><td class="num">W</td><td>REPEAT</td><td class="num">table[t mod 20]</td><td class="num">87 / 140</td></tr>
+            <tr><td class="num">5 (30–149)</td><td class="num">rY</td><td>LOCAL</td><td>a line through the frames within 5 of t</td><td class="num">119 / 120</td></tr>
+            <tr><td class="num">5 (30–149)</td><td class="num">rZ</td><td>LOCAL</td><td>a line through the frames within 5 of t</td><td class="num">118 / 120</td></tr>
+            <tr><td class="num">6 (90–149)</td><td class="num">rX</td><td>EXACT</td><td class="num">((0)-11)&lt;&lt;4</td><td class="num">38 / 60</td></tr>
+            <tr><td class="num">6 (90–149)</td><td class="num">rZ</td><td>EXACT</td><td class="num">((-t)//8)^12</td><td class="num">47 / 60</td></tr>
+            <tr><td class="num">6 (90–149)</td><td class="num">oB</td><td>EXACT</td><td class="num">5*(min((t//4),24))</td><td class="num">59 / 60</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cannot"><strong>CANNOT is information.</strong> The clip's other 28 numbers came back CANNOT. In 26 of them, hives each found a rule but disagreed with one another; one was a lone local fit with 18 misses, and in one no hive reached 60%. Sora's motion can be traced frame by frame, but no single law holds for the whole clip.</p>
+    </div>
+  </section>
+
+  <section class="block" id="numbers">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The numbers test</p>
+        <h2>The closest thing to a model that takes numbers.</h2>
+        <p>3DTrajMaster (ICLR 2025) makes a video from a short text and, for each entity, 13 poses: a rotation and a position in metres. AM wrote its two shots as those 13 × 12 numbers, with no picture in between.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile"><p class="v num"><span class="from">400</span> → <span class="to">10.7</span> px</p><p class="k">Where the poses land: through the camera the model publishes, then through the camera fitted from its own training renders.</p></div>
+        <div class="tile"><p class="v num">29.0 px</p><p class="k">How far the model's own published videos land from the numbers they were given (median, ten one-entity videos).</p></div>
+        <div class="tile"><p class="v num">44.7 px</p><p class="k">The bar for AM's shots, fixed in advance: the 90th percentile of those ten videos.</p></div>
+      </div>
+      <div class="numbers-figure">
+        <figure style="margin:0">
+          <img src="media/numbers_paths.jpg" alt="AM's planned slide and jump paths drawn over a frame from the model's training data" width="720" height="480">
+          <figcaption>AM's slide (red) and jump (blue), solved in the model's world and drawn here over one of its training frames (360°-Motion dataset, Apache-2.0). Only the numbers go to the model.</figcaption>
+        </figure>
+        <div class="status">
+          <p><span class="pill wait">SEALED · NOT RUN</span></p>
+          <p><strong style="color:var(--ink)">Slide:</strong> a fox moves 3.6 m, starting and stopping at rest, and stops on AM's spot at frame 39.</p>
+          <p><strong style="color:var(--ink)">Jump:</strong> a 70 cm gravity arc landing at frame 30. No animal in the model's training data ever leaves the ground.</p>
+          <p>The words carry nothing: "a fox … is moving in the desert". The plan was sealed on 3 November 2026 (SHA-256 61c9ceb0…d95d). The run needs one CUDA GPU with 40 GB or more, and then it is a single command.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cost">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Cost</p>
+        <h2>AM's part costs 0 tokens.</h2>
+        <p style="margin-top:16px;color:var(--muted)">AM's work on the chess shot took 166 s of Mac time, about $0.0014. The one generated take cost about $1.05. Before the ask and the scene agreed, three takes cost about $2.19 and none was exact. Prompt-only, the mouse took six tries and $0.87 and never landed.</p>
+      </div>
+      <div>
+        <p class="eyebrow">Limits</p>
+        <ul class="limits">
+          <li><strong>Single takes, not rates.</strong> A sealed run of 20 to 50 shots would turn passes into a rate.</li>
+          <li><strong>The lens is assumed</strong> and depth comes from a model, not a measured camera.</li>
+          <li><strong>The core often answers CANNOT on Sora clips</strong>, including the mouse's own motion; that jump was solved from AM's measurements.</li>
+          <li><strong>The repaint adds error</strong> AM cannot remove, and models do not keep the clock.</li>
+          <li><strong>The numbers test has not run.</strong> Whether a pose-driven model follows AM is still open.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="mark" href="#top">AM Math <b>3D</b></a>
+    <div class="buttons" style="margin-top:0">
+      <a class="btn" href="https://claude.ai/artifact/Cu9qB3YB3oE771xddHaGPm">Paper <span class="arr">↗</span></a>
+      <a class="btn" href="https://github.com/devkancheti4-design/am-math3d">Code <span class="arr">↗</span></a>
+      <a class="btn" href="https://github.com/devkancheti4-design/am-math3d/tree/main/results">Sealed record <span class="arr">↗</span></a>
+    </div>
+    <p>Every number on this page comes from the repository's result files.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = Array.prototype.slice.call(document.querySelectorAll('video'));
+  vids.forEach(function (v) {
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; return; }
+    v.addEventListener('click', function () { if (v.paused) { v.play().catch(function () {}); } else { v.pause(); } });
+    v.tabIndex = 0;
+    v.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); v.click(); } });
+  });
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.play().catch(function () {}); } else { en.target.pause(); } });
+    }, { rootMargin: '120px' });
+    vids.forEach(function (v) { io.observe(v); });
+  }
+})();
+</script>
+</body>
+</html>

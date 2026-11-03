@@ -11,9 +11,9 @@ This package holds:
 
 | Where | Link |
 |---|---|
-| Website (public, GitHub Pages) | https://devkancheti4-design.github.io/am-exact-video/ (repo `devkancheti4-design/am-exact-video`) |
+| Website (public, GitHub Pages) | https://devkancheti4-design.github.io/am-math3d/ (source: `docs/`) |
 
-The website's repo holds the pages, the videos and the proof files; this repo holds the code behind them.
+GitHub Pages serves the website from this repo's `docs/` folder.
 
 ## What it proved
 
@@ -548,7 +548,8 @@ That is not the job anyway: the intent sets the question, and the puzzle is what
 | `results/ad_test/` | the ad test: the photo, depth, the 450-row lock, the guide, the take and its score |
 | `results/numbers_test/` | the numbers test: the contract, the model's baseline, AM's sealed slide and jump, the control, the rules, the runner |
 | `results/data/`, `results/media/`, `results/ask_am/` | the mouse test: plans, scores, takes, last frames, labelled videos |
-| `site/` | the website's source; the public copy is the `am-exact-video` repo |
+| `docs/` | the website, served by GitHub Pages: one page, its videos and figures |
+| `site/` | the first website: the seven steps, and a page per test (chess, mouse) with every take |
 
 ## Notes
 

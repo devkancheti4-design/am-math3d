@@ -1,0 +1,18 @@
+{
+ "sealed_at": "2026-11-03 08:05:47 IST",
+ "sha256": "61c9ceb05e48f76d064cb354ae9adc1b1b35a127ae21a45a1d831eac0515d95d",
+ "files": {
+  "inputs.json": "15852d457dab93303932d306bc089add44a006ecc7f98cfa191b7405f7e51a47",
+  "RULES.md": "4c138d8ae0ff0f8c66867579a27109edd6cd503716f9b3b6ba612866b44bd371",
+  "data/contract.json": "2ad13caaf360c3d39cc6e3e30525071458436969c5e40a471421610f84870a07",
+  "data/baseline.json": "cffe312031ee3514ea093b247ad75395c462786d2efde61971d3df93b624fd24",
+  "data/ground.json": "6a8c62c92784cd1a5d7c10bfce680f23c9833c1b02c042acedd1e7b83c126749",
+  "slide/plan.json": "13307526bf03163f159dd72fa96276b96cbb291285424e69f0b75dd8722915e8",
+  "jump/plan.json": "540840a895ca4252b5b645fdcc7bafa2207a6390ec7bb682c16eeee65bdbba2a",
+  "control/plan.json": "f90c8feef3041f41df6cde7232fa3404460b230e700d12298ee01f6e8750efc7",
+  "../../math3d/am_numbers.py": "4ebf024a13fe6350e6accf8ae3add79a22e560baf3137f2afa8267ee33ae755b",
+  "../../math3d/am_intent.py": "f2c450118e5dd4dcd24a5035cbea6e64a497307e9e34da4185c7ca764171697b",
+  "run/run_trajmaster.py": "06eefcee1cee411dfe9d0f3986571bf9c2da49657e4596be7064a7047c348fc7"
+ },
+ "note": "written before any video is generated; the scores are held to RULES.md and nothing here is rewritten"
+}

@@ -38,6 +38,11 @@ The website's repo holds the pages, the videos and the proof files; this repo ho
 - From one product photo, AM wrote and locked all 450 frames of a 15-second camera move: an 8° arc around a notebook and a push-in to 85% of the frame height.
 - The one pass failed: ElevenLabs' Kling 4.0 Edit returned 4 seconds and ran the move about twice as fast as AM's clock.
 
+**Numbers test: AM's numbers straight into a model that takes numbers. Sealed, not run.**
+- 3DTrajMaster (ICLR 2025) takes each animal's position and rotation as numbers instead of a picture. AM wrote a slide and a jump as its 13 poses and sealed them (SHA-256 `61c9ceb0…d95d`). The run is waiting for a GPU with 40 GB or more.
+- Measured already: the model lands the animals in its own published videos a median 29 px from their numbers.
+- Its published camera is off: through it, the numbers miss the animals by about 400 px. The camera fitted from its own training videos lands them within 10.7 px.
+
 ## Why AM renders a guide video
 
 ```
@@ -72,6 +77,8 @@ measurement    →  every painted frame against AM's locked numbers
    - the measurement only sees what was painted, to within about 2 to 3 px.
 
    A model that takes AM's numbers themselves as input (every frame's position, size and timing) would have nothing to reinterpret. Until one is available, the render is the bridge.
+
+   One research model does take numbers: 3DTrajMaster. AM's numbers for it are sealed and waiting for a GPU (see [the numbers test](#the-numbers-test-ams-numbers-straight-into-a-model-that-takes-numbers-sealed-not-run)).
 
 ## The method, exactly
 
@@ -375,6 +382,24 @@ Photo: a Vazram notebook on a desk (`results/ad_test/photo_original.jpg`; mapped
 python3 math3d/am_ad.py score results/ad_test results/ad_test/output_kling.mp4
 ```
 
+## The numbers test: AM's numbers straight into a model that takes numbers (sealed, not run)
+
+[3DTrajMaster](https://github.com/KwaiVGI/3DTrajMaster) (ICLR 2025; its open release is CogVideoX-5B with a pose injector) makes a video from words plus, for each animal, 13 poses: position and rotation, in metres. AM writes those poses itself, and nothing is drawn. Code: `math3d/am_numbers.py`. Files: `results/numbers_test/`; its `README.md` has every step.
+
+- **The model's contract.** The camera that 3DTrajMaster's poses are written for is not the camera that rendered its training videos. The real one stands about 3.45 m higher and looks 3.3° further down. Through the published camera, the poses miss the animals by about 400 px. Through the camera fitted from the model's own training renders (Apple Vision subject masks), the animals are within 10.7 px.
+- **The model's own bar.** In its 10 published one-animal videos, the animals land a median 29.0 px (about 21 cm) from their own numbers. The rule for AM's shots is 44.7 px, the 90th percentile of those 10. A PASS means the model follows AM's numbers as well as it follows its own.
+- **AM's shots.** AM's intent solver works them out on the ground the training animals stand on, at the model's clock of 17.14 frames a second:
+  - slide: a fox stands for 0.3 s, then slides 3.6 m (e = 3s² − 2s³, starting and stopping at rest) and stops on AM's spot at frame 39;
+  - jump: the fox stands for 1.0 s, then leaps 2.3 m on a 70 cm gravity arc and lands at frame 30. No training animal ever leaves the ground, so this one is a stretch;
+  - the words are the model's own template, "<entity> is moving in the <location>": nothing about stopping, jumping, time or place;
+  - a control re-runs the model's own published robot shot first, to show the runner reproduces the model.
+- **The lock.** Sealed with SHA-256 `61c9ceb0…d95d` on 3 Nov 2026 at 08:05 IST, before any video. It covers the inputs, rules, contract, baseline, plans, scorer, intent solver and runner.
+- **Not run yet.** The run needs a CUDA GPU with 40 GB or more: `results/numbers_test/run/run_trajmaster.py`, or `run/modal_app.py` on Modal.
+
+```bash
+python3 results/numbers_test/tools/score_shots.py      # after the run: checks the lock, then scores every video
+```
+
 ## Cost and price
 
 Machine time is priced at about $0.03 an hour: an owned Mac, its price spread over three years, plus power. Credits are priced at $6 per 30,000 ($0.0002 each). Kling credits use its listed rate of 1,730 a second.
@@ -505,6 +530,7 @@ That is not the job anyway: the intent sets the question, and the puzzle is what
 | `math3d/am_shot.py` | the shot: an intent locked as numbers, a 720p guide, a prompt; the take measured against the lock |
 | `math3d/am_beat.py` | the beat test: AM's core reasoner's REPEAT law extends a clip; the take's beat measured twice |
 | `math3d/am_ad.py` | the ad test: a camera move around a product in one photo, every frame locked; the take measured |
+| `math3d/am_numbers.py`, `math3d/video_instances.swift` | the numbers test: AM's plan as 3DTrajMaster's poses through the model's contract; Apple Vision subject masks on every frame; the score |
 | `math3d/am_puzzle.py`, `math3d/instances.swift` | AM's geometric puzzle of a frame: stage, camera, pieces, relations |
 | `math3d/am_grid.py` | the board: colours, grid size, corners, pose through the lens |
 | `math3d/am_intent.py` | an intent solved on the puzzle: the gravity arc, the clean background, the render |
@@ -512,7 +538,7 @@ That is not the job anyway: the intent sets the question, and the puzzle is what
 | `math3d/am_render.py`, `math3d/make_plate.py` | AM draws its own math; the mouse mask and the empty-pan background |
 | `math3d/explain_video.py` | AM's math drawn on any take, frame by frame |
 | `math3d/am_extend.py` | prediction without an intent: the record of why it was dropped |
-| `math3d/track_from.swift`, `subject_mask.swift` | Apple Vision helpers |
+| `math3d/track_from.swift`, `subject_mask.swift`, `video_instances.swift` | Apple Vision helpers |
 | `map_app.py`, `ui/map.html`, `ui/vendor/three.min.js` | the AM Map app (three.js r128, MIT, kept here so it works offline) |
 | `maps/sample`, `maps/sora_206`, `maps/sora_130`, `maps/vazram` | AM's maps: the Sora mouse, the chess clip, the drummers, the notebook photo |
 | `samples/` | the Sora clip (Rapidata, Apache-2.0), the mask and the background |
@@ -520,6 +546,7 @@ That is not the job anyway: the intent sets the question, and the puzzle is what
 | `results/chess_test/tools/` | the code that made and checks each chess proof |
 | `results/beat_test/` | the beat test: the law, the lock, the guide, AM's process video, the take and its score |
 | `results/ad_test/` | the ad test: the photo, depth, the 450-row lock, the guide, the take and its score |
+| `results/numbers_test/` | the numbers test: the contract, the model's baseline, AM's sealed slide and jump, the control, the rules, the runner |
 | `results/data/`, `results/media/`, `results/ask_am/` | the mouse test: plans, scores, takes, last frames, labelled videos |
 | `site/` | the website's source; the public copy is the `am-exact-video` repo |
 

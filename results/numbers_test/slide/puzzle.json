@@ -1,0 +1,66 @@
+{
+ "clip": null,
+ "frame": 0,
+ "size": [
+  720,
+  480
+ ],
+ "lens": {
+  "f": 1060.6060606060605,
+  "cx": 360.0,
+  "cy": 240.0,
+  "fov": 37.497
+ },
+ "stage": {
+  "normal": [
+   0.011023,
+   -0.989383,
+   -0.144912
+  ],
+  "offset": 204.304,
+  "axes": {
+   "across": [
+    0.999939,
+    0.010906,
+    0.001597
+   ],
+   "forward": [
+    0.0,
+    -0.144921,
+    0.989443
+   ],
+   "origin": [
+    0.0,
+    89.323,
+    800.0
+   ]
+  }
+ },
+ "pieces": [
+  {
+   "id": 1,
+   "kind": "subject",
+   "stands": {
+    "across": -150.0,
+    "forward": 120.0,
+    "up": 0.0
+   },
+   "size": {
+    "across": 80.0,
+    "forward_seen": 80.0,
+    "up": 70.0
+   },
+   "top": 70.0,
+   "rests_on": null,
+   "distance_cm": 933.3,
+   "box": [
+    140.6,
+    240.3,
+    92.4,
+    80.8
+   ]
+  }
+ ],
+ "relations": [],
+ "source": "the camera that rendered 3DTrajMaster's training clips (fitted)"
+}

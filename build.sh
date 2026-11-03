@@ -8,4 +8,5 @@ clang -O2 -fwrapv -shared -o am/libam_eyes.dylib am/am_eyes.c
 swiftc -O math3d/track_from.swift -o math3d/track_from
 swiftc -O math3d/subject_mask.swift -o math3d/subject_mask
 swiftc -O math3d/instances.swift -o math3d/instances
-echo "built am/video_eyes, am/libam_eyes.dylib, math3d/track_from, math3d/subject_mask, math3d/instances"
+swiftc -O math3d/video_instances.swift -o math3d/video_instances
+echo "built am/video_eyes, am/libam_eyes.dylib, math3d/track_from, math3d/subject_mask, math3d/instances, math3d/video_instances"

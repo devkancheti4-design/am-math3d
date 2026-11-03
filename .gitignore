@@ -5,6 +5,7 @@ am/libam_eyes.dylib
 math3d/track_from
 math3d/subject_mask
 math3d/instances
+math3d/video_instances
 math3d/out/
 .DS_Store
 # maps the app builds stay on this Mac; the Sora sample's map ships
@@ -22,3 +23,4 @@ results/chess_test/rerun/
 # your shots and takes stay on this Mac
 maps/*/shots/
 *.tmp
+results/numbers_test/logs/
